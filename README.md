@@ -54,7 +54,7 @@ Open http://localhost:3000/ in browser.
 [[http://www.sqlite.org/|SQLite3]]((I discovered yesterday that PHP 5
 includes SQLite3 too.)). The configuration file is
 ''..\song-o-matic\config\database.yml'':
-<code yaml>
+``` yaml
 # SQLite version 3.x
 #   gem install sqlite3
 development:
@@ -85,7 +85,7 @@ It's a good idea to stick with SQLite3 for development and testing, but
 for deployment you may need a more capable database engine. Luckily, you
 can also configure Rails to use MySQL in deployment, in which case you'd
 edit the last entry of the configuration file to read: 
-<code yaml>
+``` yaml
 deployment:
   adapter: mysql
   encoding: utf8
@@ -114,7 +114,7 @@ title:string composer:string artist_or_group:string
 </cli>
 Examine the generated files for the model
 ''..\song-o-matic\app\models\song.rb'':
-<code ruby>
+``` ruby
 class Song < ActiveRecord::Base
 end
 </code>
@@ -125,7 +125,7 @@ of //DRY// and //Convention over Configuration//.
 
 The (page) controller ''..\song-o-matic\app\models\song.rb'' is a little
 more complex:
-<code ruby>
+``` ruby
 class SongsController < ApplicationController
   # GET /songs
   # GET /songs.xml
@@ -240,7 +240,7 @@ there is a view for each of the browser actions //edit//, //index//,
 //new// and //show//. 
 
 For example the //new// view is:
-<code html>
+``` html
 <h1>New song</h1>
 
 <%= render 'form' %>
@@ -248,7 +248,7 @@ For example the //new// view is:
 <%= link_to 'Back', songs_path %>
 </code>
 and the form is
-<code html>
+``` html
 <%= form_for(@song) do |f| %>
   <% if @song.errors.any? %>
     <div id="error_explanation">
@@ -284,7 +284,7 @@ song from being saved:</h2>
 
 Finally, the ''rails generate'' command created a database //migration//
 file:
-<code ruby>
+``` ruby
 class CreateSongs < ActiveRecord::Migration
   def self.up
     create_table :songs do |t|
@@ -321,7 +321,7 @@ C:\Users\cpjobling> rake db:seed
 </cli>
 We edit this file to add some data. In Rails, we can create a new data
 record using:
-<code ruby>
+``` ruby
 Song.create(:title => "Wish You Where Here", 
   :composer => "Roger Waters and David Gilmour", 
   :artist_or_group => "Pink Floyd")
@@ -329,7 +329,7 @@ Song.create(:title => "Wish You Where Here",
 This makes use of the //Song// constructor((Actually the
 //ActiveRecord// constructor.)) as a generator for a new record. After
 editing, the complete migration is:
-<code ruby>
+``` ruby
 # This file should contain all the record creation needed to seed the
 database with its default values.
 # The data can then be loaded with the rake db:seed (or created
@@ -370,7 +370,7 @@ Mars"},
 
 Note, if you look at the code in the ''songs_controller'' you'll see
 that the ''create'' action is used like this:
-<code ruby>
+``` ruby
 @song = Song.new(params[:song])
 </code>
 This takes the ''parameter'' variable((A //hash// or //dictionary//))
@@ -398,7 +398,7 @@ used when the model was created.
 ###  7. Validate the form data 
 
 Add validation to a field of the model:
-<code ruby>
+``` ruby
 class Song < ActiveRecord::Base
   validates :title, :artist_or_group, :presence => true
 end 
@@ -418,7 +418,7 @@ creates a view for each default action in controller (i.e. //index//,
 //new//, //edit//, //show//). Examine and edit a view template (located
 in ''..\song-o-matic\app\views\songs\''). This is
 ''..\song-o-matic\app\views\songs\index.html.erb'':
-<code html>
+``` html
 <h1>Listing songs</h1>
 
 <table>

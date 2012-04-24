@@ -77,7 +77,7 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
-</code>
+```
 To run rails with these defaults, you need do no more to configure your
 databases.
 
@@ -93,7 +93,7 @@ deployment:
   username: root
   password:
   host: localhost
-</code>
+```
 You would then need to use //phpMyAdmin// or the //mysql// command to
 create the database //songs_production// and set up suitable user
 permissions((The example assumes MySQL in its default state with no root
@@ -117,7 +117,7 @@ Examine the generated files for the model
 ``` ruby
 class Song < ActiveRecord::Base
 end
-</code>
+```
 Note that most of the default behaviour for the model is abstracted into
 the superclass ''ActiveRecord::Base''. We only need to define
 specialisms, most of the behaviour is inherited. This is another example
@@ -214,7 +214,7 @@ successfully updated.') }
     end
   end
 end
-</code>
+```
 The apparent complexity is because methods have been provided to support
 the so-called //RESTful interface// that Rails provides. It is another
 example of //convention over configuration//. In fact when you look at
@@ -246,7 +246,7 @@ For example the //new// view is:
 <%= render 'form' %>
 
 <%= link_to 'Back', songs_path %>
-</code>
+```
 and the form is
 ``` html
 <%= form_for(@song) do |f| %>
@@ -280,7 +280,7 @@ song from being saved:</h2>
   </div>
 <% end %>
 
-</code>
+```
 
 Finally, the ''rails generate'' command created a database //migration//
 file:
@@ -300,7 +300,7 @@ class CreateSongs < ActiveRecord::Migration
     drop_table :songs
   end
 end
-</code>
+```
 which uses ruby to provide a database agnostic way of creating and
 updating the database. We use the migration to create the database by
 running
@@ -325,7 +325,7 @@ record using:
 Song.create(:title => "Wish You Where Here", 
   :composer => "Roger Waters and David Gilmour", 
   :artist_or_group => "Pink Floyd")
-</code>
+```
 This makes use of the //Song// constructor((Actually the
 //ActiveRecord// constructor.)) as a generator for a new record. After
 editing, the complete migration is:
@@ -366,13 +366,13 @@ Mars"},
           :artist_or_group => "Queen"}
           ]
         )
-</code>
+```
 
 Note, if you look at the code in the ''songs_controller'' you'll see
 that the ''create'' action is used like this:
 ``` ruby
 @song = Song.new(params[:song])
-</code>
+```
 This takes the ''parameter'' variable((A //hash// or //dictionary//))
 from the web browser (equivalent to ''$_POST'' in PHP) to populate the
 data record.
@@ -402,7 +402,7 @@ Add validation to a field of the model:
 class Song < ActiveRecord::Base
   validates :title, :artist_or_group, :presence => true
 end 
-</code>
+```
 Create a new song or edit an existing one to show that the validator
 works.
 
@@ -447,7 +447,7 @@ in ''..\song-o-matic\app\views\songs\''). This is
 <br />
 
 <%= link_to 'New Song', new_song_path %>
-</code>
+```
 
 The things to note about this is that the code is HTML with ruby
 embedded between template marker tags ''<% .. %>''. The code is

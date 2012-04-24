@@ -1,24 +1,24 @@
 # EG-259 Songs
 
 A simple application used as a demo in one of my courses. This file has
-been translated from the [DokWiki original](http://eng-hope.swan.ac.uk/dokuwiki/eg-259:practicals:5). That version should be considered out of date!
+been translated from the [DokWiki original](http:*eng-hope.swan.ac.uk/dokuwiki/eg-259:practicals:5). That version should be considered out of date!
 
 ## Live "Ruby on Rails" Demo 
 
-These are the steps performed live in [Contact Hour 25] (http://eng-hope.swan.ac.uk/dokuwiki/eg-259:lecture20). I
+These are the steps performed live in [Contact Hour 25] (http:*eng-hope.swan.ac.uk/dokuwiki/eg-259:lecture20). I
 have shown the steps based on a Windows installation. To install Rails
 on Windows you are recommended to use
-[RailsInstaller](http://railsinstaller.org/). 
+[RailsInstaller](http:*railsinstaller.org/). 
 
 The Macintosh comes with Ruby pre-installed and to install rails you
 just need to follow these steps((Adapted from Sam Ruby, Dave Thomas and
-David Heinermeier Hansson, //Agile Web Development with Rails//, 4th
+David Heinermeier Hansson, *Agile Web Development with Rails*, 4th
 Edition, 2011)):
 
-  sudo gem update --system
-  sudo gem uninstall ruby-gems-update
-  sudo gem install rails
-  sudo gem install sqlite3 
+    sudo gem update --system
+    sudo gem uninstall ruby-gems-update
+    sudo gem install rails
+    sudo gem install sqlite3 
 
 In action, the Mac, being a Unix system, has a different command line
 interface as you will have seen from the recording of the lecture.
@@ -26,9 +26,7 @@ interface as you will have seen from the recording of the lecture.
 
 ###  1. Create the songs application 
 
-<cli prompt=">">
-C:\Users\cpjobling>rails new song-o-matic
-</cli>
+    C:\Users\cpjobling>rails new song-o-matic
 
 
 
@@ -36,12 +34,10 @@ C:\Users\cpjobling>rails new song-o-matic
 
 ###  2. Start rails application and show default page 
 
-<cli prompt=">">
-C:\Users\cpjobling>cd song-o-matic
-C:\Users\cpjobling\song-o-matic>rails server
-</cli>
+    C:\Users\cpjobling>cd song-o-matic
+    C:\Users\cpjobling\song-o-matic>rails server
 
-Open http://localhost:3000/ in browser.
+Open http:*localhost:3000/ in browser.
 
 
 
@@ -51,7 +47,7 @@ Open http://localhost:3000/ in browser.
  
   * Rails (since version 2.0.2) comes preconfigured to use a
     lightweight, open-source SQL database called
-[SQLite3](http://www.sqlite.org/)((I discovered yesterday that PHP 5
+[SQLite3](http:*www.sqlite.org/)((I discovered yesterday that PHP 5
 includes SQLite3 too.)). The configuration file is
 ''..\song-o-matic\config\database.yml'':
 ``` yaml
@@ -94,8 +90,8 @@ deployment:
   password:
   host: localhost
 ```
-You would then need to use //phpMyAdmin// or the //mysql// command to
-create the database //songs_production// and set up suitable user
+You would then need to use *phpMyAdmin* or the *mysql* command to
+create the database *songs_production* and set up suitable user
 permissions((The example assumes MySQL in its default state with no root
 password, which of course you should never use in a live deployment!)).
 
@@ -108,10 +104,11 @@ password, which of course you should never use in a live deployment!)).
 Stop (<key>C - c</key>) the web application then create a model to
 represent the for the songs table and its associated controller and
 views.
-<cli prompt=">">
+
+````
 C:\Users\cpjobling\song-o-matic>rails generate scaffold song
 title:string composer:string artist_or_group:string
-</cli>
+````
 Examine the generated files for the model
 ''..\song-o-matic\app\models\song.rb'':
 ``` ruby
@@ -121,7 +118,7 @@ end
 Note that most of the default behaviour for the model is abstracted into
 the superclass ''ActiveRecord::Base''. We only need to define
 specialisms, most of the behaviour is inherited. This is another example
-of //DRY// and //Convention over Configuration//. 
+of *DRY* and *Convention over Configuration*. 
 
 The (page) controller ''..\song-o-matic\app\models\song.rb'' is a little
 more complex:
@@ -216,30 +213,30 @@ successfully updated.') }
 end
 ```
 The apparent complexity is because methods have been provided to support
-the so-called //RESTful interface// that Rails provides. It is another
-example of //convention over configuration//. In fact when you look at
+the so-called *RESTful interface* that Rails provides. It is another
+example of *convention over configuration*. In fact when you look at
 the code, there are 7 methods which the controller implements:
-  - show the list of songs (//index//)
-  - display an individual song (//show//)
-  - create a new song (//new//) ...
-  - and add it to the database (//create//)
-  - change an existing song (//edit//) and ...
-  - store the changed song in the database (//update//), and
-  - delete a song from the database (//destroy//).
+  - show the list of songs (*index*)
+  - display an individual song (*show*)
+  - create a new song (*new*) ...
+  - and add it to the database (*create*)
+  - change an existing song (*edit*) and ...
+  - store the changed song in the database (*update*), and
+  - delete a song from the database (*destroy*).
   
 Note the use of the HTML verbs GET, PUT, POST, DELETE in each of these
 cases, the URLs that are associated with each action, and also note that
 both HTML (the default) and XML are supported resource
 types((JavaScript, e.g. for Ajax with JSON can also be used)).
 
-The //scaffolding// command that was added to the ''rails generate''
+The *scaffolding* command that was added to the ''rails generate''
 instruction has also created suitable HTML code to allow the data to be
-displayed in the web application. The views (examples of the //Template
-View// pattern) are stored in ''..\song-o-matic\app\views\songs'' and
-there is a view for each of the browser actions //edit//, //index//,
-//new// and //show//. 
+displayed in the web application. The views (examples of the *Template
+View* pattern) are stored in ''..\song-o-matic\app\views\songs'' and
+there is a view for each of the browser actions *edit*, *index*,
+*new* and *show*. 
 
-For example the //new// view is:
+For example the *new* view is:
 ``` html
 <h1>New song</h1>
 
@@ -282,7 +279,7 @@ song from being saved:</h2>
 
 ```
 
-Finally, the ''rails generate'' command created a database //migration//
+Finally, the ''rails generate'' command created a database *migration*
 file:
 ``` ruby
 class CreateSongs < ActiveRecord::Migration
@@ -326,8 +323,8 @@ Song.create(:title => "Wish You Where Here",
   :composer => "Roger Waters and David Gilmour", 
   :artist_or_group => "Pink Floyd")
 ```
-This makes use of the //Song// constructor((Actually the
-//ActiveRecord// constructor.)) as a generator for a new record. After
+This makes use of the *Song* constructor((Actually the
+*ActiveRecord* constructor.)) as a generator for a new record. After
 editing, the complete migration is:
 ``` ruby
 # This file should contain all the record creation needed to seed the
@@ -373,7 +370,7 @@ that the ''create'' action is used like this:
 ``` ruby
 @song = Song.new(params[:song])
 ```
-This takes the ''parameter'' variable((A //hash// or //dictionary//))
+This takes the ''parameter'' variable((A *hash* or *dictionary*))
 from the web browser (equivalent to ''$_POST'' in PHP) to populate the
 data record.
 
@@ -384,7 +381,7 @@ Restart the application web server:
 C:\Users\cpjobling\song-o-matic>rails server
 </cli>
 
-Open a web browser and browse to http://localhost:3000/songs/
+Open a web browser and browse to http:*localhost:3000/songs/
 
 Create a new song, list songs, update songs, delete a song: i.e.
 demonstrate Create Retrieve Update Delete (CRUD) interface that is
@@ -414,8 +411,8 @@ command
 C:\Users\cpjobling\song-o-matic>rails generate scaffold song
 title:string composer:string artist_or_group:string
 </cli>
-creates a view for each default action in controller (i.e. //index//,
-//new//, //edit//, //show//). Examine and edit a view template (located
+creates a view for each default action in controller (i.e. *index*,
+*new*, *edit*, *show*). Examine and edit a view template (located
 in ''..\song-o-matic\app\views\songs\''). This is
 ''..\song-o-matic\app\views\songs\index.html.erb'':
 ``` html

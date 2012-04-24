@@ -158,14 +158,11 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       if @song.save
-        format.html { redirect_to(@song, :notice => 'Song was
-successfully created.') }
-        format.xml  { render :xml => @song, :status => :created,
-:location => @song }
+        format.html { redirect_to(@song, :notice => 'Song was successfully created.') }
+        format.xml  { render :xml => @song, :status => :created, :location => @song }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @song.errors, :status =>
-:unprocessable_entity }
+        format.xml  { render :xml => @song.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -177,13 +174,10 @@ successfully created.') }
 
     respond_to do |format|
       if @song.update_attributes(params[:song])
-        format.html { redirect_to(@song, :notice => 'Song was
-successfully updated.') }
+        format.html { redirect_to(@song, :notice => 'Song was successfully updated.') }
         format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @song.errors, :status =>
-:unprocessable_entity }
+      else        format.html { render :action => "edit" }
+        format.xml  { render :xml => @song.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -337,8 +331,7 @@ songs = Song.create(
             :artist_or_group => beatles},
             { :title => "Space Oddity",
             :composer => "David Bowie",
-            :artist_or_group => "David Bowie and the Spiders from
-Mars"},
+            :artist_or_group => "David Bowie and the Spiders from Mars"},
             {:title => "Don't Sleep in the Subway Darling",
             :composer => "Jackie Trent and Tony Hatch",
             :artist_or_group => "Petula Clark"},
@@ -357,18 +350,18 @@ that the ''create'' action is used like this:
 ``` ruby
 @song = Song.new(params[:song])
 ```
-This takes the ''parameter'' variable((A *hash* or *dictionary*))
-from the web browser (equivalent to ''$_POST'' in PHP) to populate the
+This takes the `parameter` variable -- a *hash* or *dictionary* --
+from the web browser (equivalent to `$_POST` in PHP) to populate the
 data record.
 
 ###  6. Demonstrate the CRUD behaviour 
 
 Restart the application web server:
-<cli prompt=">">
+```
 C:\Users\cpjobling\song-o-matic>rails server
-</cli>
+```
 
-Open a web browser and browse to http://localhost:3000/songs/
+Open a web browser and browse to [http://localhost:3000/songs/](http://localhost:3000/songs/).
 
 Create a new song, list songs, update songs, delete a song: i.e.
 demonstrate Create Retrieve Update Delete (CRUD) interface that is
@@ -376,14 +369,16 @@ typical for many web-fronted database applications. Observe the URIs for
 each case.
 
 Note that all the behaviour (mapping URIs to model methods and
-parameters) is inherited from ''ActionController'' and all the
-presentation (HTML views) were created by the ''scaffolding'' option
+parameters) is inherited from `ActionController` and all the
+presentation (HTML views) were created by the *scaffolding* option
 used when the model was created.
+
 ###  7. Validate the form data 
 
 Add validation to a field of the model:
 ``` ruby
 class Song < ActiveRecord::Base
+  :
   validates :title, :artist_or_group, :presence => true
 end 
 ```
@@ -394,14 +389,14 @@ works.
 
 In addition to creating the controller and the migration file, the
 command
-<cli prompt=">">
+```
 C:\Users\cpjobling\song-o-matic>rails generate scaffold song
 title:string composer:string artist_or_group:string
-</cli>
+```
 creates a view for each default action in controller (i.e. *index*,
 *new*, *edit*, *show*). Examine and edit a view template (located
-in ''..\song-o-matic\app\views\songs\''). This is
-''..\song-o-matic\app\views\songs\index.html.erb'':
+in `..\song-o-matic\app\views\songs\`. This is
+`..\song-o-matic\app\views\songs\index.html.erb`:
 ``` html
 <h1>Listing songs</h1>
 
@@ -422,8 +417,7 @@ in ''..\song-o-matic\app\views\songs\''). This is
     <td><%= song.artist_or_group %></td>
     <td><%= link_to 'Show', song %></td>
     <td><%= link_to 'Edit', edit_song_path(song) %></td>
-    <td><%= link_to 'Destroy', song, :confirm => 'Are you sure?',
-:method => :delete %></td>
+    <td><%= link_to 'Destroy', song, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -434,10 +428,10 @@ in ''..\song-o-matic\app\views\songs\''). This is
 ```
 
 The things to note about this is that the code is HTML with ruby
-embedded between template marker tags ''<% .. %>''. The code is
+embedded between template marker tags `<% .. %>`. The code is
 relatively easy to understand. Also note that this template can be
 embedded at run time into a template defined in
-''..\song-o-matic\app\views\layouts''. This is where you would create a
+`..\song-o-matic\app\views\layouts`. This is where you would create a
 wrapper file that was valid HTML and loads the required stylesheets.
  
 ## Footnotes

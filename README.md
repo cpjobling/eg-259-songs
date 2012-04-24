@@ -1,6 +1,7 @@
 # EG-259 Songs
 
-A simple application used as a demo in one of my courses.
+A simple application used as a demo in one of my courses. This file has
+been translated from the [DokWiki original](http://eng-hope.swan.ac.uk/dokuwiki/eg-259:practicals:5). That version should be considered out of date!
 
 ## Live "Ruby on Rails" Demo 
 

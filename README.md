@@ -5,10 +5,10 @@ been translated from the [DokWiki original](http://eng-hope.swan.ac.uk/dokuwiki/
 
 ## Live "Ruby on Rails" Demo 
 
-These are the steps performed live in [[http://eng-hope.swan.ac.uk/dokuwiki/eg-259:lecture20|lecture 20]]. I
+These are the steps performed live in [Contact Hour 25] (http://eng-hope.swan.ac.uk/dokuwiki/eg-259:lecture20). I
 have shown the steps based on a Windows installation. To install Rails
 on Windows you are recommended to use
-[[http://railsinstaller.org/|RailsInstaller]]. 
+[RailsInstaller](http://railsinstaller.org/). 
 
 The Macintosh comes with Ruby pre-installed and to install rails you
 just need to follow these steps((Adapted from Sam Ruby, Dave Thomas and
@@ -51,7 +51,7 @@ Open http://localhost:3000/ in browser.
  
   * Rails (since version 2.0.2) comes preconfigured to use a
     lightweight, open-source SQL database called
-[[http://www.sqlite.org/|SQLite3]]((I discovered yesterday that PHP 5
+[SQLite3](http://www.sqlite.org/)((I discovered yesterday that PHP 5
 includes SQLite3 too.)). The configuration file is
 ''..\song-o-matic\config\database.yml'':
 ``` yaml
@@ -454,5 +454,5 @@ embedded between template marker tags ''<% .. %>''. The code is
 relatively easy to understand. Also note that this template can be
 embedded at run time into a template defined in
 ''..\song-o-matic\app\views\layouts''. This is where you would create a
-wrapper file that was valid XHTML and loads the required stylesheets.
+wrapper file that was valid HTML and loads the required stylesheets.
  

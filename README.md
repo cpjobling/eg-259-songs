@@ -91,26 +91,25 @@ permissions<sup><a href="#fn3" id="link_fn3">3)</a></sup>.
 ###  4. Create a songs model and a songs controller 
 
 
-Stop (<key>C - c</key>) the web application then create a model to
-represent the for the songs table and its associated controller and
+Stop (`Ctrl- c`) the web application then create a model to
+represent the the songs table and its associated controller and
 views.
 
 ````
-C:\Users\cpjobling\song-o-matic>rails generate scaffold song
-title:string composer:string artist_or_group:string
+C:\Users\cpjobling\song-o-matic>rails generate scaffold song title:string composer:string artist_or_group:string
 ````
 Examine the generated files for the model
-''..\song-o-matic\app\models\song.rb'':
+`..\song-o-matic\app\models\song.rb`:
 ``` ruby
 class Song < ActiveRecord::Base
 end
 ```
 Note that most of the default behaviour for the model is abstracted into
-the superclass ''ActiveRecord::Base''. We only need to define
+the superclass `ActiveRecord::Base`. We only need to define
 specialisms, most of the behaviour is inherited. This is another example
 of *DRY* and *Convention over Configuration*. 
 
-The (page) controller ''..\song-o-matic\app\models\song.rb'' is a little
+The (page) controller `..\song-o-matic\app\models\song.rb` is a little
 more complex:
 ``` ruby
 class SongsController < ApplicationController
@@ -214,10 +213,10 @@ the code, there are 7 methods which the controller implements:
   - store the changed song in the database (*update*), and
   - delete a song from the database (*destroy*).
   
-Note the use of the HTML verbs GET, PUT, POST, DELETE in each of these
+Note the use of the HTML verbs `GET`, `PUT`, `POST`, and `DELETE` in each of these
 cases, the URLs that are associated with each action, and also note that
-both HTML (the default) and XML are supported resource
-types((JavaScript, e.g. for Ajax with JSON can also be used)).
+both HTML (the default) and JSON are supported resource
+types<sup><a href="#fn4" id="link_fn4">4)</a></sup>.
 
 The *scaffolding* command that was added to the ''rails generate''
 instruction has also created suitable HTML code to allow the data to be
@@ -269,7 +268,7 @@ song from being saved:</h2>
 
 ```
 
-Finally, the ''rails generate'' command created a database *migration*
+Finally, the `rails generate` command created a database *migration*
 file:
 ``` ruby
 class CreateSongs < ActiveRecord::Migration
@@ -291,21 +290,22 @@ end
 which uses ruby to provide a database agnostic way of creating and
 updating the database. We use the migration to create the database by
 running
-<cli prompt=">">
+```
 C:\Users\cpjobling\song-o-matic>rake db:migrate
-</cli>
-The file naming convention, e.g.  ''20110508123454_create_songs.rb'',
+```
+
+The file naming convention, e.g.  `20110508123454_create_songs.rb`,
 includes a time-stamp to ensure that migrations are applied in the
 correct order.
-===== 5. Use a seed file to populate the database with some initial data
-=====
 
-The ''rails new'' command also creates a ruby file
-''..\song-o-matic\db\seeds.rb'' that can be used to populate the
+### 5. Use a seed file to populate the database with some initial data
+
+The `rails new` command also creates a ruby file
+`..\song-o-matic\db\seeds.rb` that can be used to populate the
 database with some initial data:
-<cli prompt=">">
+````
 C:\Users\cpjobling> rake db:seed
-</cli>
+````
 We edit this file to add some data. In Rails, we can create a new data
 record using:
 ``` ruby
@@ -313,19 +313,16 @@ Song.create(:title => "Wish You Where Here",
   :composer => "Roger Waters and David Gilmour", 
   :artist_or_group => "Pink Floyd")
 ```
-This makes use of the *Song* constructor((Actually the
-*ActiveRecord* constructor.)) as a generator for a new record. After
+This makes use of the *Song* constructor<sup><a href="#fn5" id="fn5_link">5)</a></sup>
+as a generator for a new record. After
 editing, the complete migration is:
 ``` ruby
-# This file should contain all the record creation needed to seed the
-database with its default values.
-# The data can then be loaded with the rake db:seed (or created
-alongside the db with db:setup).
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
 #
-#   cities = City.create([{ :name => 'Chicago' }, { :name =>
-'Copenhagen' }])
+#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 Song.create(:title => "Wish You Where Here", 
   :composer => "Roger Waters and David Gilmour", 
@@ -451,3 +448,7 @@ Edition, 2011.
 <a id="fn2" href="#link_fn2">2)</a> I discovered last year that PHP 5 includes SQLite3 too.
 
 <a id="fn3" href="#link_fn3">3)</a> The example assumes MySQL in its default state with no root password, which of course you should never use in a live deployment!
+
+<a id="fn4" href="#link_fn4">4)</a> XML can also be used.
+
+<a id="fn5" href="#link_fn5">5)</a> Actually the *ActiveRecord* constructor.

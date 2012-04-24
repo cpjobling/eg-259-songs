@@ -1,14 +1,14 @@
 # EG-259 Songs
 
 A simple application used as a demo in one of my courses. This file has
-been translated from the [DokWiki original](http:*eng-hope.swan.ac.uk/dokuwiki/eg-259:practicals:5). That version should be considered out of date!
+been translated from the [DokWiki original](http://eng-hope.swan.ac.uk/dokuwiki/eg-259:practicals:5). That version should be considered out of date!
 
 ## Live "Ruby on Rails" Demo 
 
-These are the steps performed live in [Contact Hour 25] (http:*eng-hope.swan.ac.uk/dokuwiki/eg-259:lecture20). I
+These are the steps performed live in [Contact Hour 25] (http://eng-hope.swan.ac.uk/dokuwiki/eg-259:lecture20). I
 have shown the steps based on a Windows installation. To install Rails
 on Windows you are recommended to use
-[RailsInstaller](http:*railsinstaller.org/). 
+[RailsInstaller](http://railsinstaller.org/). 
 
 The Macintosh comes with Ruby pre-installed and to install rails you
 just need to follow these steps((Adapted from Sam Ruby, Dave Thomas and
@@ -37,7 +37,7 @@ interface as you will have seen from the recording of the lecture.
     C:\Users\cpjobling>cd song-o-matic
     C:\Users\cpjobling\song-o-matic>rails server
 
-Open http:*localhost:3000/ in browser.
+Open http://localhost:3000/ in browser.
 
 
 
@@ -47,7 +47,7 @@ Open http:*localhost:3000/ in browser.
  
   * Rails (since version 2.0.2) comes preconfigured to use a
     lightweight, open-source SQL database called
-[SQLite3](http:*www.sqlite.org/)((I discovered yesterday that PHP 5
+[SQLite3](http://www.sqlite.org/)((I discovered yesterday that PHP 5
 includes SQLite3 too.)). The configuration file is
 ''..\song-o-matic\config\database.yml'':
 ``` yaml
@@ -381,7 +381,7 @@ Restart the application web server:
 C:\Users\cpjobling\song-o-matic>rails server
 </cli>
 
-Open a web browser and browse to http:*localhost:3000/songs/
+Open a web browser and browse to http://localhost:3000/songs/
 
 Create a new song, list songs, update songs, delete a song: i.e.
 demonstrate Create Retrieve Update Delete (CRUD) interface that is

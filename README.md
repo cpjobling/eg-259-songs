@@ -24,13 +24,13 @@ interface as you will have seen from the recording of the lecture.
 
 ###  1. Create the songs application 
 
-    C:\Users\cpjobling>rails new song-o-matic
+    C:\Users\cpjobling>rails new eg-259-songs
 
 
 ###  2. Start rails application and show default page 
 
-    C:\Users\cpjobling>cd song-o-matic
-    C:\Users\cpjobling\song-o-matic>rails server
+    C:\Users\cpjobling>cd eg-259-songs
+    C:\Users\cpjobling\eg-259-songs>rails server
 
 Open [http://localhost:3000/](http://localhost:3000/) in browser.
 
@@ -39,7 +39,7 @@ Open [http://localhost:3000/](http://localhost:3000/) in browser.
  
   * Rails (since version 2.0.2) comes preconfigured to use a lightweight, open-source SQL database 
 called [SQLite3](http://www.sqlite.org/)<sup><a href="#fn2" id="link_fn2">2</a>)</sup>. The configuration file is
-`..\song-o-matic\config\database.yml`:
+`..\eg-259-songs\config\database.yml`:
 
 ``` yaml
 # SQLite version 3.x
@@ -96,10 +96,10 @@ represent the the songs table and its associated controller and
 views.
 
 ````
-C:\Users\cpjobling\song-o-matic>rails generate scaffold song title:string composer:string artist_or_group:string
+C:\Users\cpjobling\eg-259-songs>rails generate scaffold song title:string composer:string artist_or_group:string
 ````
 Examine the generated files for the model
-`..\song-o-matic\app\models\song.rb`:
+`..\eg-259-songs\app\models\song.rb`:
 ``` ruby
 class Song < ActiveRecord::Base
 end
@@ -109,7 +109,7 @@ the superclass `ActiveRecord::Base`. We only need to define
 specialisms, most of the behaviour is inherited. This is another example
 of *DRY* and *Convention over Configuration*. 
 
-The (page) controller `..\song-o-matic\app\models\song.rb` is a little
+The (page) controller `..\eg-259-songs\app\models\song.rb` is a little
 more complex:
 ``` ruby
 class SongsController < ApplicationController
@@ -215,7 +215,7 @@ types<sup><a href="#fn4" id="link_fn4">4)</a></sup>.
 The *scaffolding* command that was added to the ''rails generate''
 instruction has also created suitable HTML code to allow the data to be
 displayed in the web application. The views (examples of the *Template
-View* pattern) are stored in ''..\song-o-matic\app\views\songs'' and
+View* pattern) are stored in ''..\eg-259-songs\app\views\songs'' and
 there is a view for each of the browser actions *edit*, *index*,
 *new* and *show*. 
 
@@ -285,7 +285,7 @@ which uses ruby to provide a database agnostic way of creating and
 updating the database. We use the migration to create the database by
 running
 ```
-C:\Users\cpjobling\song-o-matic>rake db:migrate
+C:\Users\cpjobling\eg-259-songs>rake db:migrate
 ```
 
 The file naming convention, e.g.  `20110508123454_create_songs.rb`,
@@ -295,7 +295,7 @@ correct order.
 ### 5. Use a seed file to populate the database with some initial data
 
 The `rails new` command also creates a ruby file
-`..\song-o-matic\db\seeds.rb` that can be used to populate the
+`..\eg-259-songs\db\seeds.rb` that can be used to populate the
 database with some initial data:
 ````
 C:\Users\cpjobling> rake db:seed
@@ -358,7 +358,7 @@ data record.
 
 Restart the application web server:
 ```
-C:\Users\cpjobling\song-o-matic>rails server
+C:\Users\cpjobling\eg-259-songs>rails server
 ```
 
 Open a web browser and browse to [http://localhost:3000/songs/](http://localhost:3000/songs/).
@@ -390,13 +390,13 @@ works.
 In addition to creating the controller and the migration file, the
 command
 ```
-C:\Users\cpjobling\song-o-matic>rails generate scaffold song
+C:\Users\cpjobling\eg-259-songs>rails generate scaffold song
 title:string composer:string artist_or_group:string
 ```
 creates a view for each default action in controller (i.e. *index*,
 *new*, *edit*, *show*). Examine and edit a view template (located
-in `..\song-o-matic\app\views\songs\`. This is
-`..\song-o-matic\app\views\songs\index.html.erb`:
+in `..\eg-259-songs\app\views\songs\`. This is
+`..\eg-259-songs\app\views\songs\index.html.erb`:
 ``` html
 <h1>Listing songs</h1>
 
@@ -431,7 +431,7 @@ The things to note about this is that the code is HTML with ruby
 embedded between template marker tags `<% .. %>`. The code is
 relatively easy to understand. Also note that this template can be
 embedded at run time into a template defined in
-`..\song-o-matic\app\views\layouts`. This is where you would create a
+`..\eg-259-songs\app\views\layouts`. This is where you would create a
 wrapper file that was valid HTML and loads the required stylesheets.
  
 ## Footnotes
@@ -446,3 +446,4 @@ Edition, 2011.
 <a id="fn4" href="#link_fn4">4)</a> XML can also be used.
 
 <a id="fn5" href="#link_fn5">5)</a> Actually the *ActiveRecord* constructor.
+

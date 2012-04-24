@@ -44,6 +44,9 @@ called [SQLite3](http://www.sqlite.org/)<sup><a href="#fn2" id="link_fn2">2</a>)
 ``` yaml
 # SQLite version 3.x
 #   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
 development:
   adapter: sqlite3
   database: db/development.sqlite3
@@ -73,7 +76,7 @@ for deployment you may need a more capable database engine. Luckily, you
 can also configure Rails to use MySQL in deployment, in which case you'd
 edit the last entry of the configuration file to read: 
 ``` yaml
-deployment:
+production:
   adapter: mysql
   encoding: utf8
   database: songs_production
@@ -102,6 +105,7 @@ Examine the generated files for the model
 `..\eg-259-songs\app\models\song.rb`:
 ``` ruby
 class Song < ActiveRecord::Base
+  attr_accessible :artist_or_group, :composer, :title
 end
 ```
 Note that most of the default behaviour for the model is abstracted into
@@ -109,40 +113,40 @@ the superclass `ActiveRecord::Base`. We only need to define
 specialisms, most of the behaviour is inherited. This is another example
 of *DRY* and *Convention over Configuration*. 
 
-The (page) controller `..\eg-259-songs\app\models\song.rb` is a little
+The (page) controller `..\eg-259-songs\app\controllers\songs_controller.rb` is a little
 more complex:
 ``` ruby
 class SongsController < ApplicationController
   # GET /songs
-  # GET /songs.xml
+  # GET /songs.json
   def index
     @songs = Song.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @songs }
+      format.json { render json: @songs }
     end
   end
 
   # GET /songs/1
-  # GET /songs/1.xml
+  # GET /songs/1.json
   def show
     @song = Song.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @song }
+      format.json { render json: @song }
     end
   end
 
   # GET /songs/new
-  # GET /songs/new.xml
+  # GET /songs/new.json
   def new
     @song = Song.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @song }
+      format.json { render json: @song }
     end
   end
 
@@ -152,45 +156,46 @@ class SongsController < ApplicationController
   end
 
   # POST /songs
-  # POST /songs.xml
+  # POST /songs.json
   def create
     @song = Song.new(params[:song])
 
     respond_to do |format|
       if @song.save
-        format.html { redirect_to(@song, :notice => 'Song was successfully created.') }
-        format.xml  { render :xml => @song, :status => :created, :location => @song }
+        format.html { redirect_to @song, notice: 'Song was successfully created.' }
+        format.json { render json: @song, status: :created, location: @song }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @song.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PUT /songs/1
-  # PUT /songs/1.xml
+  # PUT /songs/1.json
   def update
     @song = Song.find(params[:id])
 
     respond_to do |format|
       if @song.update_attributes(params[:song])
-        format.html { redirect_to(@song, :notice => 'Song was successfully updated.') }
-        format.xml  { head :ok }
-      else        format.html { render :action => "edit" }
-        format.xml  { render :xml => @song.errors, :status => :unprocessable_entity }
+        format.html { redirect_to @song, notice: 'Song was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /songs/1
-  # DELETE /songs/1.xml
+  # DELETE /songs/1.json
   def destroy
     @song = Song.find(params[:id])
     @song.destroy
 
     respond_to do |format|
-      format.html { redirect_to(songs_url) }
-      format.xml  { head :ok }
+      format.html { redirect_to songs_url }
+      format.json { head :no_content }
     end
   end
 end
@@ -227,13 +232,12 @@ For example the *new* view is:
 
 <%= link_to 'Back', songs_path %>
 ```
-and the form is
+and the form is found in `..\eg-259-songs\app\views\songs\_form.htlm.erb`
 ``` html
 <%= form_for(@song) do |f| %>
   <% if @song.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@song.errors.count, "error") %> prohibited this
-song from being saved:</h2>
+      <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
 
       <ul>
       <% @song.errors.full_messages.each do |msg| %>
@@ -259,14 +263,13 @@ song from being saved:</h2>
     <%= f.submit %>
   </div>
 <% end %>
-
 ```
 
 Finally, the `rails generate` command created a database *migration*
 file:
 ``` ruby
 class CreateSongs < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :songs do |t|
       t.string :title
       t.string :composer
@@ -274,10 +277,6 @@ class CreateSongs < ActiveRecord::Migration
 
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :songs
   end
 end
 ```
@@ -288,7 +287,7 @@ running
 C:\Users\cpjobling\eg-259-songs>rake db:migrate
 ```
 
-The file naming convention, e.g.  `20110508123454_create_songs.rb`,
+The file naming convention, e.g.  `20120424094127_create_songs.rb`,
 includes a time-stamp to ensure that migrations are applied in the
 correct order.
 
@@ -378,9 +377,10 @@ used when the model was created.
 Add validation to a field of the model:
 ``` ruby
 class Song < ActiveRecord::Base
-  :
+  attr_accessible :artist_or_group, :composer, :title
   validates :title, :artist_or_group, :presence => true
-end 
+end
+
 ```
 Create a new song or edit an existing one to show that the validator
 works.
@@ -417,7 +417,7 @@ in `..\eg-259-songs\app\views\songs\`. This is
     <td><%= song.artist_or_group %></td>
     <td><%= link_to 'Show', song %></td>
     <td><%= link_to 'Edit', edit_song_path(song) %></td>
-    <td><%= link_to 'Destroy', song, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', song, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -425,6 +425,7 @@ in `..\eg-259-songs\app\views\songs\`. This is
 <br />
 
 <%= link_to 'New Song', new_song_path %>
+
 ```
 
 The things to note about this is that the code is HTML with ruby
@@ -432,7 +433,7 @@ embedded between template marker tags `<% .. %>`. The code is
 relatively easy to understand. Also note that this template can be
 embedded at run time into a template defined in
 `..\eg-259-songs\app\views\layouts`. This is where you would create a
-wrapper file that was valid HTML and loads the required stylesheets.
+wrapper file that was valid HTML5 and loads the required stylesheets.
  
 ## Footnotes
 

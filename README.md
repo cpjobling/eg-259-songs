@@ -11,9 +11,7 @@ on Windows you are recommended to use
 [RailsInstaller](http://railsinstaller.org/). 
 
 The Macintosh comes with Ruby pre-installed and to install rails you
-just need to follow these steps((Adapted from Sam Ruby, Dave Thomas and
-David Heinermeier Hansson, *Agile Web Development with Rails*, 4th
-Edition, 2011)):
+just need to follow these steps<sup><a href="#fn1" id="link_fn1">1)</a></sup>:
 
     sudo gem update --system
     sudo gem uninstall ruby-gems-update
@@ -29,27 +27,20 @@ interface as you will have seen from the recording of the lecture.
     C:\Users\cpjobling>rails new song-o-matic
 
 
-
-
-
 ###  2. Start rails application and show default page 
 
     C:\Users\cpjobling>cd song-o-matic
     C:\Users\cpjobling\song-o-matic>rails server
 
-Open http://localhost:3000/ in browser.
-
-
-
+Open [http://localhost:3000/](http://localhost:3000/) in browser.
 
 
 ###  3. Configure database 
  
-  * Rails (since version 2.0.2) comes preconfigured to use a
-    lightweight, open-source SQL database called
-[SQLite3](http://www.sqlite.org/)((I discovered yesterday that PHP 5
-includes SQLite3 too.)). The configuration file is
-''..\song-o-matic\config\database.yml'':
+  * Rails (since version 2.0.2) comes preconfigured to use a lightweight, open-source SQL database 
+called [SQLite3](http://www.sqlite.org/)<sup><a href="#fn2" id="link_fn2">2</a>)</sup>. The configuration file is
+`..\song-o-matic\config\database.yml`:
+
 ``` yaml
 # SQLite version 3.x
 #   gem install sqlite3
@@ -74,8 +65,8 @@ production:
   pool: 5
   timeout: 5000
 ```
-To run rails with these defaults, you need do no more to configure your
-databases.
+
+To run rails with these defaults, you need do no more to configure your databases.
 
 It's a good idea to stick with SQLite3 for development and testing, but
 for deployment you may need a more capable database engine. Luckily, you
@@ -92,8 +83,7 @@ deployment:
 ```
 You would then need to use *phpMyAdmin* or the *mysql* command to
 create the database *songs_production* and set up suitable user
-permissions((The example assumes MySQL in its default state with no root
-password, which of course you should never use in a live deployment!)).
+permissions<sup><a href="#fn3" id="link_fn3">3)</a></sup>.
 
 
 
@@ -453,3 +443,11 @@ embedded at run time into a template defined in
 ''..\song-o-matic\app\views\layouts''. This is where you would create a
 wrapper file that was valid HTML and loads the required stylesheets.
  
+## Footnotes
+
+<a id="fn1" href="#link_fn1">1)</a> Adapted from Sam Ruby, Dave Thomas and David Heinermeier Hansson, *Agile Web Development with Rails*, 4th
+Edition, 2011.
+
+<a id="fn2" href="#link_fn2">2)</a> I discovered last year that PHP 5 includes SQLite3 too.
+
+<a id="fn3" href="#link_fn3">3)</a> The example assumes MySQL in its default state with no root password, which of course you should never use in a live deployment!
